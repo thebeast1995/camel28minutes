@@ -14,29 +14,4 @@ public class CamelMicroserviceAApplication {
 
 }
 
-@Component
-class MyFileRouter2 extends RouteBuilder {
-	@Override
-	public void configure() throws Exception {
-		from("file:files/input")
-				.log("${body}")
-				.to("file:files/output");
-	}
-}
-
-@Component
-class ActiveMqSenderRouter extends RouteBuilder {
-
-	@Override
-	public void configure() throws Exception {
-		//timer
-		from("timer:active-mq-timer?period=10000")
-				.transform().constant("My message for ActiveMQ")
-				.log("${body}")
-				.to("activemq:my-activemq-queue");
-		//queue
-	}
-}
-
-
 
